@@ -1,0 +1,14 @@
+#!ipxe
+
+kernel wimboot
+initrd sources/boot.wim  boot.wim
+########## https://ipxe.org/err/1d0c62  ######initrd sources/install.wim  install.wim
+boot
+
+
+
+#kernel wimboot
+#initrd boot/bcd         BCD
+#initrd boot/boot.sdi    boot.sdi
+#initrd sources/boot.wim boot.wim
+#boot

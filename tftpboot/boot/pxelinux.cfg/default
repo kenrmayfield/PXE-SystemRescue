@@ -1,0 +1,60 @@
+# https://wiki.syslinux.org/wiki/index.php?title=Menu
+
+UI menu.c32
+DEFAULT sysresccd
+PROMPT 0
+TIMEOUT 100
+MENU TITLE PXE Boot
+MENU IMMEDIATE
+KBDMAP de.ktl
+
+
+LABEL sysresccd
+	MENU LABEL ^SystemRescue
+	LINUX sysresccd/boot/x86_64/vmlinuz
+	INITRD sysresccd/boot/intel_ucode.img,sysresccd/boot/amd_ucode.img,sysresccd/boot/x86_64/sysresccd.img
+	APPEND archisobasedir=sysresccd ip=dhcp archiso_http_srv=http://192.168.1.38/ checksum setkmap=de rootpass=foo678 nofirewall noautologin
+	SYSAPPEND 3
+
+
+#LABEL clonezilla
+#	MENU LABEL ^Clonezilla
+#	KERNEL clonezilla/live/vmlinuz
+#	INITRD clonezilla/live/initrd.img
+#	# https://clonezilla.org/fine-print-live-doc.php?path=clonezilla-live/doc/99_Misc/00_live-boot-parameters.doc
+#	# The usercrypted password is created by `echo YOUR_PASSWORD | mkpasswd -s` (package whois)
+#	# foo678
+#	APPEND boot=live union=overlay username=user config components quiet loglevel=0 noswap edd=on nomodeset enforcing=0 locales=de_DE.UTF-8 keyboard-layouts=de ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_batch="no" vga=788 net.ifnames=0 nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.enable_fbdev=1 fetch=http://192.168.1.38/clonezilla/live/filesystem.squashfs ocs_daemonon="ssh" usercrypted=$y$j9T$kq7a7Fs5JrZFhzQIROsvK0$NkcDvv8DkZNDFbwx7cSrkqK4ieDs/KZ75jZKDyErUp5
+
+
+# # https://ipxe.org/embed
+# LABEL ipxewimboot
+# 	MENU LABEL iPXE WIMBoot
+# 	KERNEL ipxe.lkrn
+# 	INITRD wimboot.ipxe
+
+
+LABEL boot_hd0
+	MENU LABEL Boot from ^first hard drive
+	COM32 chain.c32
+	APPEND hd0
+
+# http://www.memtest.org/
+LABEL memtest
+	MENU LABEL Run ^Memtest86+ (RAM test)
+	LINUX sysresccd/boot/memtest
+
+# http://www.serverelements.com/?target=Hardware_Detection_Tool
+LABEL hdt
+	MENU LABEL ^Hardware Information (HDT)
+	COM32 hdt.c32
+	# https://pci-ids.ucw.cz/
+	APPEND modules_alias=hdt/modalias.gz pciids=hdt/pci.ids.gz
+
+LABEL reboot
+	MENU LABEL ^Reboot
+	COM32 reboot.c32
+
+LABEL poweroff
+	MENU LABEL ^Power Off
+	COM32 poweroff.c32
