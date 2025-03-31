@@ -15,6 +15,7 @@ Use case:
 - Existing DHCP server (e.g., Fritz!Box router)
 
 ## How-To
+#### NOTE: You can Add Many Linux Live CDs.
 
 1. Setup a Linux PC/VM as PXE host
    - Virtualbox: use network bridge and (important!) virtio-driver (other network drivers were too slow for me)
