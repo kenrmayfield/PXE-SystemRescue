@@ -19,10 +19,10 @@ Use case:
 1. Setup a Linux PC/VM as PXE host
    - Virtualbox: use network bridge and (important!) virtio-driver (other network drivers were too slow for me)
 2. run `setup.sh` (as root; check script before)
-3. Prepare neccessary SystemRescue files
-   1. Download ISO from https://www.system-rescue.org
+3. Prepare neccessary SystemRescue or SystemRescueZFS ISO Files
+   1. Download ISO from https://www.system-rescue.org or https://github.com/nchevsky/systemrescue-zfs
    2. Copy `sysresccd/` folder from ISO to `/tftpboot/` (see below for expected folder structure)
-4. (Optional) prepare Clonezilla
+4. (Optional) to Add Clonezilla ISO Files
    1. Download ISO from https://clonezilla.org
    2. Copy `live/` folder from ISO to `/tftpboot/` (see below for expected folder structure)
 5. Adjust IP addresses 
